@@ -125,7 +125,7 @@ class TSP():
             c1_o = []
             c2_o = []
             # コピーした部分以外は, もう片方の親から順番を保ちつつ代入
-            for i in range(LENGTH - (cut2 - cut1)):
+            for i in range(LENGTH):
                 if p1[i] not in c2_m:
                     c2_o.append(p1[i])
                 if p2[i] not in c1_m:
