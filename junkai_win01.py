@@ -21,7 +21,7 @@ LENGTH = 100
 # Traveling Salesman Problem
 class TSP():
     # 世代ごとの個体数
-    POPULATION = 50
+    POPULATION = 100
     # トーナメントサイズ
     TOURN_SIZE = 2
     # 突然変異率
