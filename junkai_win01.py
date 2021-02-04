@@ -240,6 +240,7 @@ class TSP():
             print("\r最短距離: {:7.04f}".format(min_dist), end="")
             self.LOG.append(min_dist)
             self.advGene() # 次の世代へ
+        print("")
     
     # 適応度評価 (ただの距離計算)
     # 小さいほど良いのであまり適応度と呼びたくない
