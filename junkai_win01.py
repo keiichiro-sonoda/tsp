@@ -8,14 +8,15 @@ import matplotlib.pyplot as plt
 import json
 
 # シード設定
-rd.seed(123)
-np.random.seed(123)
+SEED = 333
+
+rd.seed(SEED)
+np.random.seed(SEED)
 
 # 遺伝子長
 # つまり拠点の数
 # 4以上
 LENGTH = 100
-LOOP = 500
 
 # Traveling Salesman Problem
 class TSP():
@@ -31,13 +32,10 @@ class TSP():
     # 経路を求めるための座標を与える
     # numpy 配列を与える
     def __init__(self, coordinates):
-        self.coordinates = coordinates
-        # 距離テーブルを作る (numpy配列)
-        self.makeDistTable()
-        # 最初の世代を作る
-        self.makeFirstGene()
-        # エリートを除いた子供の数を計算しておく
-        self.CHILD_NUM = self.POPULATION - self.ELITE_NUM
+        self.coordinates = coordinates # 引数の座標配列をクラス内変数で保持 (解く問題)
+        self.makeDistTable() # 距離テーブルを作る (numpy配列)
+        self.makeFirstGene() # 最初の世代を作る
+        self.CHILD_NUM = self.POPULATION - self.ELITE_NUM # エリートを除いた子供の数を計算しておく
 
     # 循環交叉
     # 親を2つ与える
@@ -66,7 +64,7 @@ class TSP():
         for i in fixed:
             c1[i] = p2[i]
             c2[i] = p1[i]
-        return c1, c2
+        return (c1, c2)
     
     # 部分写像交叉
     # PMX: Partially-mapped crossover
