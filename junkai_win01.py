@@ -10,7 +10,7 @@ import json
 
 # シード設定
 SEED = 255
-SEED = int(time.time() * 1000) & 0xffffffff
+#SEED = int(time.time() * 1000) & 0xffffffff
 print(hex(SEED))
 
 rd.seed(SEED)
@@ -19,7 +19,7 @@ np.random.seed(SEED)
 # 遺伝子長
 # つまり拠点の数
 # 4以上
-LENGTH = 10
+LENGTH = 100
 
 # Traveling Salesman Problem
 class TSP():
@@ -250,12 +250,13 @@ class TSP():
             mother = self.generation[p_indices[0]]
             father = self.generation[p_indices[1]]
             # 交叉方法も等確率で選ぶ
-            if rd.random() < 0.5:
-                # 循環交叉
+            rn = rd.random()
+            if rn < -1: # 循環交叉
                 child1, child2 = self.cyclicCrossover(mother, father)
-            else:
-                # 部分写像交叉
+            elif rn < 0: # 部分写像交叉
                 child1, child2 = self.partMapCrossover(mother, father)
+            else: # 順序交叉
+                child1, child2 = self.orderCrossOver(mother, father)
             # 一定確率で突然変異
             if (rd.random() < self.MTN_RATE):
                 self.mutation(child1)
@@ -420,12 +421,12 @@ def main():
     f.close()
     arr = np.array(l)
     #arr = np.random.randint(0, 100, (LENGTH, 2))
-    arr = np.random.rand(LENGTH, 2)
+    #arr = np.random.rand(LENGTH, 2)
     #print(arr)
     # 解く配列を与えてインスタンス作成
     tsp = TSP(arr)
-    tsp.crossoverTest()
-    #tsp.advGeneLoopCont()
+    #tsp.crossoverTest()
+    tsp.advGeneLoopCont()
 
 if __name__ == "__main__":
     main()
