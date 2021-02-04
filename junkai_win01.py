@@ -236,14 +236,14 @@ class TSP():
             # 距離が短い経路が先頭に来るように並び替え
             self.sortByFitness()
             # 現世代で最も短い経路距離
-            print("\r{:6.3f}".format(self.fitness[0]), end="")
+            print("\r最短距離: {:7.04f}".format(self.fitness[0]), end="")
             self.advGene() # 次の世代へ
         # 適応度評価
         self.evalFitness()
         # 距離が短い経路が先頭に来るように並び替え
         self.sortByFitness()
         # 最終世代で最も短い経路距離
-        print("\r{:6.3f}".format(self.fitness[0]))
+        print("\r最短距離: {:7.04f}".format(self.fitness[0]))
     
     # 適応度評価(ただの距離計算)
     # 低いほど良いのであまり適応度と呼びたくない
