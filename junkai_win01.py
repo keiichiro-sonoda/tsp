@@ -15,7 +15,7 @@ np.random.seed(123)
 # つまり拠点の数
 # 4以上
 LENGTH = 100
-LOOP = 100
+LOOP = 500
 
 # Traveling Salesman Problem
 class TSP():
@@ -194,9 +194,9 @@ class TSP():
     # 突然変異
     # 幾つか手法があるため, 確率的に選択する
     def mutation(self, path):
-        if rd.randint(0, 1):
+        if rd.randint(0, 1): # 入れ替え
             self.swapTwoMut(path)
-        else:
+        else: # ずらし
             self.shiftMut(path)
 
     # 世代を進める
