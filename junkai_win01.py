@@ -350,11 +350,16 @@ class TSP():
     def advGeneLoopCont(self):
         loop_all = 0
         while True:
-            loop = int(input("ループ数: "))
+            tmp = input("ループ数: ")
+            try:
+                loop = int(tmp)
+            except ValueError:
+                loop = 0
             if loop > 0:
                 self.advGeneLoop(loop)
                 self.viewBestPath()
                 loop_all += loop
+                print("総ループ数:", loop_all)
             else:
                 break
         print("総ループ数:", loop_all)
