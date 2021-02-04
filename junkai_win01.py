@@ -5,10 +5,13 @@
 import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 import json
 
 # シード設定
-SEED = 333
+SEED = 255
+SEED = int(time.time() * 1000) & 0xffffffff
+print(hex(SEED))
 
 rd.seed(SEED)
 np.random.seed(SEED)
