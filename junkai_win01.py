@@ -115,29 +115,19 @@ class TSP():
     # 順序交叉
     def orderCrossOver(self, p1, p2):
         cut1, cut2 = self.getTwoCutPoint()
-        # 入れ替え
-        if cut1 > cut2:
-            tmp = cut1
-            cut1 = cut2
-            cut2 = tmp
-        cut1 = 0
-        cut2 = 8
         print(cut1, cut2)
-        if cut1 <= cut2:
-            # 切断点に挟まれている部分はそれぞれコピー
+        if cut1 <= cut2: # 切断点に挟まれている部分をコピー
             c1_m = p1[cut1:cut2]
             c2_m = p2[cut1:cut2]
-            c1_o = []
-            c2_o = []
-            # コピーした部分以外は, もう片方の親から順番を保ちつつ代入
-            for i in range(LENGTH):
-                if p1[i] not in c2_m:
-                    c2_o.append(p1[i])
-                if p2[i] not in c1_m:
-                    c1_o.append(p2[i])
-            # 結合
-            c1 = c1_o[:cut1] + c1_m + c1_o[cut1:]
-            c2 = c2_o[:cut1] + c2_m + c2_o[cut1:]
+            c1_o = [i for i in p2 if i not in c1_m]
+            c2_o = [i for i in p1 if i not in c2_m]
+        else: # 切断点に挟まれていない部分をコピー
+            c1_o = p1[:cut1] + p1[cut2:]
+            c2_o = p2[:cut1] + p2[cut2:]
+            c1_m = [i for i in p2 if i not in c1_o]
+            c2_m = [i for i in p2 if i not in c2_o]
+        c1 = c1_o[:cut1] + c1_m + c1_o[cut1:]
+        c2 = c2_o[:cut1] + c2_m + c2_o[cut1:]
         return c1, c2
     
     # 交叉のテスト用関数
