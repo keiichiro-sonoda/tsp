@@ -11,7 +11,7 @@ import json
 # シード設定
 SEED = 255
 #SEED = int(time.time() * 1000) & 0xffffffff
-print(hex(SEED))
+#print(hex(SEED))
 
 rd.seed(SEED)
 np.random.seed(SEED)
@@ -24,7 +24,7 @@ LENGTH = 100
 # Traveling Salesman Problem
 class TSP():
     # 世代ごとの個体数
-    POPULATION = 100
+    POPULATION = 50
     # トーナメントサイズ
     TOURN_SIZE = 2
     # 突然変異率
@@ -253,7 +253,7 @@ class TSP():
             rn = rd.random()
             if rn < -1: # 循環交叉
                 child1, child2 = self.cyclicCrossover(mother, father)
-            elif rn < 0: # 部分写像交叉
+            elif rn < -2: # 部分写像交叉
                 child1, child2 = self.partMapCrossover(mother, father)
             else: # 順序交叉
                 child1, child2 = self.orderCrossOver(mother, father)
