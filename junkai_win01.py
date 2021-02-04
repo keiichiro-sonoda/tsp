@@ -117,6 +117,7 @@ class TSP():
             tmp = cut1
             cut1 = cut2
             cut2 = tmp
+        print(cut1, cut2)
         if cut1 <= cut2:
             # 切断点に挟まれている部分はそれぞれコピー
             c1_m = p1[cut1:cut2]
@@ -140,6 +141,9 @@ class TSP():
         p2 = self.makeRandomPath()
         print("親1:", p1)
         print("親2:", p2)
+        c1, c2 = self.orderCrossOver(p1, p2)
+        print("子1:", c1)
+        print("子2:", c2)
     
     # 2つの切断点を返す関数
     # 必ず切断点どうしは2以上離れるようにする
