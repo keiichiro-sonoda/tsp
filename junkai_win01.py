@@ -10,7 +10,7 @@ import json
 
 # シード設定
 SEED = 255
-#SEED = int(time.time() * 1000) & 0xffffffff
+SEED = int(time.time() * 1000) & 0xffffffff
 #print(hex(SEED))
 
 rd.seed(SEED)
@@ -251,9 +251,9 @@ class TSP():
             father = self.generation[p_indices[1]]
             # 交叉方法も等確率で選ぶ
             rn = rd.random()
-            if rn < -1: # 循環交叉
+            if rn < 0.33: # 循環交叉
                 child1, child2 = self.cyclicCrossover(mother, father)
-            elif rn < -2: # 部分写像交叉
+            elif rn < 0.66: # 部分写像交叉
                 child1, child2 = self.partMapCrossover(mother, father)
             else: # 順序交叉
                 child1, child2 = self.orderCrossOver(mother, father)
