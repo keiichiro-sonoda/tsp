@@ -296,7 +296,7 @@ class TSP():
         plt.show()
     
     # 経路を確認する関数
-    def viewPath(self, path):
+    def viewPath(self, path, late=True):
         x = self.coordinates[:, 0]
         y = self.coordinates[:, 1]
         fig = plt.figure()
@@ -304,18 +304,18 @@ class TSP():
         ax.scatter(x, y)
         for i in range(LENGTH): # 添え字-1が末尾を示す性質を利用して経路を描画
             ax.plot([x[path[i - 1]], x[path[i]]], [y[path[i - 1]], y[path[i]]], "k-")
-        plt.show()
+        if not late: # すぐに描画する場合
+            plt.show()
     
     # 現世代で最も短い経路を表示
     # 既にソート済みであること前提
-    def viewBestPath(self):
-        self.viewPath(self.generation[0])
+    def viewBestPath(self, late=True):
+        self.viewPath(self.generation[0], late=late)
     
     # 経路情報を記録したファイルを作りたい
     # json形式
-    def makeSampleFile(self):
-        # シード固定
-        np.random.seed(123)
+    def makeSampleFile(self, seed):
+        np.random.seed(seed) # シード固定
         s_arr = np.random.rand(LENGTH, 2)
         s_list = s_arr.tolist()
         print(s_list)
@@ -362,6 +362,7 @@ class TSP():
             else:
                 break
         print("総ループ数:", loop_all)
+        self.viewBestPath()
         self.viewLog()
 
 def main():
