@@ -27,7 +27,7 @@ class TSP():
     # 突然変異率
     MTN_RATE = 0.5
     # エリート数
-    ELITE_NUM = 1
+    ELITE_NUM = 0
 
     # 経路を求めるための座標を与える
     # numpy 配列を与える
@@ -367,9 +367,9 @@ class TSP():
 def main():
     # ファイル読み込み
     # ランダムな点
-    #fname = "C:\\Users\\17T2088B\\GitHub\\pracrepo\\dat\\coord100_samp01.json"
+    fname = "C:\\Users\\17T2088B\\GitHub\\pracrepo\\dat\\coord100_samp01.json"
     # 円上の点
-    fname = "C:\\Users\\17T2088B\\GitHub\\pracrepo\\dat\\circle_num100.json"
+    #fname = "C:\\Users\\17T2088B\\GitHub\\pracrepo\\dat\\circle_num100.json"
     f = open(fname, "r")
     l = json.load(f)
     f.close()
