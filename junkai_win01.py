@@ -121,13 +121,15 @@ class TSP():
             c2_m = p2[cut1:cut2]
             c1_o = [i for i in p2 if i not in c1_m]
             c2_o = [i for i in p1 if i not in c2_m]
+            c1 = c1_o[:cut1] + c1_m + c1_o[cut1:]
+            c2 = c2_o[:cut1] + c2_m + c2_o[cut1:]
         else: # 切断点に挟まれていない部分をコピー
-            c1_o = p1[:cut1] + p1[cut2:]
-            c2_o = p2[:cut1] + p2[cut2:]
+            c1_o = p1[:cut2] + p1[cut1:]
+            c2_o = p2[:cut2] + p2[cut1:]
             c1_m = [i for i in p2 if i not in c1_o]
             c2_m = [i for i in p1 if i not in c2_o]
-        c1 = c1_o[:cut1] + c1_m + c1_o[cut1:]
-        c2 = c2_o[:cut1] + c2_m + c2_o[cut1:]
+            c1 = c1_o[:cut2] + c1_m + c1_o[cut2:]
+            c2 = c2_o[:cut2] + c2_m + c2_o[cut2:]
         return c1, c2
     
     # 交叉のテスト用関数
