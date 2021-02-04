@@ -15,18 +15,18 @@ np.random.seed(123)
 # つまり拠点の数
 # 4以上
 LENGTH = 100
-LOOP = 1000
+LOOP = 100
 
 # Traveling Salesman Problem
 class TSP():
     # 世代ごとの個体数
     POPULATION = 50
     # トーナメントサイズ
-    TOURN_SIZE = 3
+    TOURN_SIZE = 2
     # 突然変異率
     MTN_RATE = 0.5
     # エリート選択する数
-    ELITE_NUM = 6
+    ELITE_NUM = 0
 
     # 経路を求めるための座標を与える
     # numpy 配列を与える
