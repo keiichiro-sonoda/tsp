@@ -120,6 +120,8 @@ class TSP():
             tmp = cut1
             cut1 = cut2
             cut2 = tmp
+        cut1 = 0
+        cut2 = 8
         print(cut1, cut2)
         if cut1 <= cut2:
             # 切断点に挟まれている部分はそれぞれコピー
