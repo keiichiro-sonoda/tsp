@@ -25,8 +25,8 @@ class TSP():
     TOURN_SIZE = 2
     # 突然変異率
     MTN_RATE = 0.5
-    # エリート選択する数
-    ELITE_NUM = 0
+    # エリート数
+    ELITE_NUM = 1
 
     # 経路を求めるための座標を与える
     # numpy 配列を与える
