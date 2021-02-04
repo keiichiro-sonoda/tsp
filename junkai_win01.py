@@ -302,8 +302,7 @@ class TSP():
         fig = plt.figure()
         ax = fig.add_subplot(111)
         ax.scatter(x, y)
-        # 添え字-1が末尾を示す性質を利用
-        for i in range(LENGTH):
+        for i in range(LENGTH): # 添え字-1が末尾を示す性質を利用して経路を描画
             ax.plot([x[path[i - 1]], x[path[i]]], [y[path[i - 1]], y[path[i]]], "k-")
         plt.show()
     
@@ -338,6 +337,14 @@ class TSP():
         json.dump(s_list, f)
         f.close()
     
+    # 横軸世代, 縦軸最短距離のグラフを描画
+    def viewLog(self):
+        x = np.arange(len(self.LOG))
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.plot(x, self.LOG)
+        plt.show()
+    
     # ループ数を標準入力で入力し, その数だけループさせる
     def advGeneLoopCont(self):
         loop_all = 0
@@ -349,13 +356,13 @@ class TSP():
                 loop = 0
             if loop > 0:
                 self.advGeneLoop(loop)
-                self.viewBestPath()
+                #self.viewBestPath()
                 loop_all += loop
                 print("総ループ数:", loop_all)
             else:
                 break
         print("総ループ数:", loop_all)
-        print(len(self.LOG))
+        self.viewLog()
 
 def main():
     # ファイル読み込み
