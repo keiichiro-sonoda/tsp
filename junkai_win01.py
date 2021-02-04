@@ -28,6 +28,8 @@ class TSP():
     MTN_RATE = 0.5
     # エリート数
     ELITE_NUM = 1
+    # 災害率
+    DISASTAR_RATE = 0.01
 
     # 経路を求めるための座標を与える
     # numpy 配列を与える
@@ -197,9 +199,17 @@ class TSP():
             self.swapTwoMut(path)
         else: # ずらし
             self.shiftMut(path)
+    
+    # 1位以外の個体を乱数にする
+    def disaster(self):
+        self.generation[1:] = [self.makeRandomPath() for i in range(self.POPULATION - 1)]
 
-    # 世代を進める
+    # 世代を進める (適応度評価とソートは完了していること前提)
     def advGene(self):
+        # 災害発生
+        if rd.random() < self.DISASTAR_RATE:
+            self.disaster()
+            return
         # 空リストスタート
         next_gene = []
         # 上限に達するまで交叉
