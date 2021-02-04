@@ -36,6 +36,7 @@ class TSP():
         self.makeDistTable() # 距離テーブルを作る (numpy配列)
         self.makeFirstGene() # 最初の世代を作る
         self.CHILD_NUM = self.POPULATION - self.ELITE_NUM # エリートを除いた子供の数を計算しておく
+        self.LOG = [] # 初期世代から, 最短距離を格納していく
 
     # 循環交叉
     # 親を2つ与える
@@ -235,30 +236,21 @@ class TSP():
             self.evalFitness()
             # 距離が短い経路が先頭に来るように並び替え
             self.sortByFitness()
-            # 現世代で最も短い経路距離
-            print("\r最短距離: {:7.04f}".format(self.fitness[0]), end="")
+            min_dist = self.fitness[0] # 現世代で最も短い経路距離
+            print("\r最短距離: {:7.04f}".format(min_dist), end="")
+            self.LOG.append(min_dist)
             self.advGene() # 次の世代へ
-        # 適応度評価
-        self.evalFitness()
-        # 距離が短い経路が先頭に来るように並び替え
-        self.sortByFitness()
-        # 最終世代で最も短い経路距離
-        print("\r最短距離: {:7.04f}".format(self.fitness[0]))
     
-    # 適応度評価(ただの距離計算)
-    # 低いほど良いのであまり適応度と呼びたくない
+    # 適応度評価 (ただの距離計算)
+    # 小さいほど良いのであまり適応度と呼びたくない
     def evalFitness(self):
         self.fitness = [self.calcPathDist(p) for p in self.generation]
     
     # 適応度順に並び替える
     def sortByFitness(self):
-        # (適応度, 経路) のリストを作成
-        pairs = list(zip(self.fitness, self.generation))
-        # 昇順ソート
-        # 適応度が低い方が先頭に来るようにする
-        pairs.sort()
-        # 各リストをソートしたものに置き換える
-        self.generation = [p[1] for p in pairs]
+        pairs = list(zip(self.fitness, self.generation)) # (適応度, 経路) のリストを作成
+        pairs.sort() # 適応度が低い方が先頭に来るように昇順ソート
+        self.generation = [p[1] for p in pairs] # 各リストをソートしたものに置き換える
         self.fitness = [p[0] for p in pairs]
     
     # ランダムな経路を作成する関数
@@ -362,6 +354,7 @@ class TSP():
             else:
                 break
         print("総ループ数:", loop_all)
+        print(len(self.LOG))
 
 def main():
     # ファイル読み込み
