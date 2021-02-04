@@ -29,7 +29,7 @@ class TSP():
     # エリート数
     ELITE_NUM = 1
     # 災害率
-    DISASTAR_RATE = 0.01
+    DISASTAR_RATE = 0
 
     # 経路を求めるための座標を与える
     # numpy 配列を与える
