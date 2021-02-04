@@ -115,7 +115,7 @@ class TSP():
     # 順序交叉
     def orderCrossOver(self, p1, p2):
         cut1, cut2 = self.getTwoCutPoint()
-        print(cut1, cut2)
+        #print(cut1, cut2)
         if cut1 <= cut2: # 切断点に挟まれている部分をコピー
             c1_m = p1[cut1:cut2]
             c2_m = p2[cut1:cut2]
