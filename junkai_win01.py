@@ -347,6 +347,19 @@ class TSP():
         f = open(s_fname, "w")
         json.dump(s_list, f)
         f.close()
+    
+    # ループ数を標準入力で入力し, その数だけループさせる
+    def advGeneLoopCont(self):
+        loop_all = 0
+        while True:
+            loop = int(input("ループ数: "))
+            if loop > 0:
+                self.advGeneLoop(loop)
+                self.viewBestPath()
+                loop_all += loop
+            else:
+                break
+        print("総ループ数:", loop_all)
 
 def main():
     # ファイル読み込み
@@ -361,12 +374,9 @@ def main():
     #arr = np.random.randint(0, 100, (LENGTH, 2))
     #arr = np.random.rand(LENGTH, 2)
     #print(arr)
+    # 解く配列を与えてインスタンス作成
     tsp = TSP(arr)
-    tsp.advGeneLoop(LOOP)
-    tsp.viewBestPath()
-    while input("もう一回? y\n") == "y":
-        tsp.advGeneLoop(LOOP)
-        tsp.viewBestPath()
+    tsp.advGeneLoopCont()
 
 if __name__ == "__main__":
     main()
