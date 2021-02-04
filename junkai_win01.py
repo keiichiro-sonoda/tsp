@@ -232,10 +232,7 @@ class TSP():
     # 一定数世代を進める
     def advGeneLoop(self, loop):
         for i in range(loop):
-            # 適応度評価
-            self.evalFitness()
-            # 距離が短い経路が先頭に来るように並び替え
-            self.sortByFitness()
+            self.evalAndSort() # 評価とソート
             min_dist = self.fitness[0] # 現世代で最も短い経路距離
             print("\r最短距離: {:7.04f}".format(min_dist), end="")
             self.LOG.append(min_dist)
@@ -253,6 +250,11 @@ class TSP():
         pairs.sort() # 適応度が低い方が先頭に来るように昇順ソート
         self.generation = [p[1] for p in pairs] # 各リストをソートしたものに置き換える
         self.fitness = [p[0] for p in pairs]
+    
+    # 評価後にソートを行う
+    def evalAndSort(self):
+        self.evalFitness()
+        self.sortByFitness()
     
     # ランダムな経路を作成する関数
     def makeRandomPath(self):
@@ -310,6 +312,7 @@ class TSP():
     # 現世代で最も短い経路を表示
     # 既にソート済みであること前提
     def viewBestPath(self, late=True):
+        self.evalAndSort()
         self.viewPath(self.generation[0], late=late)
     
     # 経路情報を記録したファイルを作りたい
