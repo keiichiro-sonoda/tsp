@@ -16,7 +16,7 @@ np.random.seed(SEED)
 # 遺伝子長
 # つまり拠点の数
 # 4以上
-LENGTH = 100
+LENGTH = 10
 
 # Traveling Salesman Problem
 class TSP():
@@ -109,18 +109,48 @@ class TSP():
                 c2[ind] = p2[ind]
         return c1, c2
     
+    # 順序交叉
+    def orderCrossOver(self, p1, p2):
+        cut1, cut2 = self.getTwoCutPoint()
+        # 入れ替え
+        if cut1 > cut2:
+            tmp = cut1
+            cut1 = cut2
+            cut2 = tmp
+        if cut1 <= cut2:
+            # 切断点に挟まれている部分はそれぞれコピー
+            c1_m = p1[cut1:cut2]
+            c2_m = p2[cut1:cut2]
+            c1_o = []
+            c2_o = []
+            # コピーした部分以外は, もう片方の親から順番を保ちつつ代入
+            for i in range(LENGTH - (cut2 - cut1)):
+                if p1[i] not in c2_m:
+                    c2_o.append(p1[i])
+                if p2[i] not in c1_m:
+                    c1_o.append(p2[i])
+            # 結合
+            c1 = c1_o[:cut1] + c1_m + c1_o[cut1:]
+            c2 = c2_o[:cut1] + c2_m + c2_o[cut1:]
+        return c1, c2
+    
+    # 交叉のテスト用関数
+    def crossoverTest(self):
+        p1 = self.makeRandomPath()
+        p2 = self.makeRandomPath()
+        print("親1:", p1)
+        print("親2:", p2)
+    
     # 2つの切断点を返す関数
     # 必ず切断点どうしは2以上離れるようにする
     def getTwoCutPoint(self):
-        # 全ての選択肢
-        points = [i for i in range(LENGTH)]
-        # 切断点1
-        cut1 = rd.choice(points)
-        # 選択肢から切断点とその隣を除去
+        points = [i for i in range(LENGTH)] # 全ての選択肢
+        cut1 = rd.choice(points) # 切断点1をランダムに決定
+        # 選択肢から切断点とその両隣を除去
+        # 例えば左端の切断点1に選ばれた場合, 右端も隣判定となり選択肢から除外
         for i in range(cut1 - 1, cut1 + 2):
             points.remove(i % LENGTH)
-        # 切断点2
-        cut2 = rd.choice(points)
+        cut2 = rd.choice(points) # 切断点2
         return cut1, cut2
     
     # 入れ替え用辞書を作り直す
@@ -389,11 +419,12 @@ def main():
     f.close()
     arr = np.array(l)
     #arr = np.random.randint(0, 100, (LENGTH, 2))
-    #arr = np.random.rand(LENGTH, 2)
+    arr = np.random.rand(LENGTH, 2)
     #print(arr)
     # 解く配列を与えてインスタンス作成
     tsp = TSP(arr)
-    tsp.advGeneLoopCont()
+    tsp.crossoverTest()
+    #tsp.advGeneLoopCont()
 
 if __name__ == "__main__":
     main()
